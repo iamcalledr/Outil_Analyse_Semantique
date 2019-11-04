@@ -7,12 +7,15 @@ __Master 1, University Projet, Computer Sciences__
 
 ## Objectif
 <p>Il s’agit de développer une interface Web permettant de : 
-• Lancer un décodage (soumission d’un fichier audio, sélection de la langue – fr, eng, affichage de l’avancement, récupération de la transcription automatique) 
-• Envoyer le résultat du décodage vers un module d’extraction d’informations sémantiques 
-• Afficher la transcription automatique « enrichie » ainsi que le nuage de mots correspondant</p>
+<ul>
+<li> Lancer un décodage (soumission d’un fichier audio, sélection de la langue – fr, eng, affichage de l’avancement, récupération de la transcription automatique) </li>
+<li> Envoyer le résultat du décodage vers un module d’extraction d’informations sémantiques </li>
+<li> Afficher la transcription automatique « enrichie » ainsi que le nuage de mots correspondant </li>
+</ul>
+</p>
 
 ## Membre
-<p>Killian MARCHAND
-Romane BUON
-Artem Karassenko
-Ossan KASSEGNE</p>
+<p>Killian MARCHAND</p>
+<p>Romane BUON</p>
+<p>Artem Karassenko</p>
+<p>Ossan KASSEGNE</p>
