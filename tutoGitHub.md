@@ -1,4 +1,5 @@
 # Tutorial Github
+<h1> En cas de soucis me contacter !!! </h1>
 
 ## Initialiser un dépot Git sur son PC
 <p> Ce placer dans le repertoire de son choix </p>
@@ -8,12 +9,12 @@ git init
 
 ## Enregistrer son profil email
 <pre><code>
-git config --global user.email "<votre email>"
+git config --global user.email "votre email"
 </code></pre>
 
 ## Enregistrer son profil user
 <pre><code>
-git config --global user.name "<votre name>"
+git config --global user.name "votre name"
 </code></pre>
 
 ## Cloner le dossier github sur son PC
