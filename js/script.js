@@ -8,46 +8,58 @@
 //                                      Global
 // =====================================================================================================================
 
-var Complet = false;
-var Follow = false;
+var completMode = false;
+var followMode = false;
 
 var syncData = [];
 
 
 function CompletMode(){
+  if(followMode == true) deleteSubtitle();
+
+  completMode = true;
+  followMode = false;
+
+  document.getElementById("currentMode").innerHTML = "Mode Complet";
+
   createSubtitle("complet");
   audioPlayer.addEventListener("timeupdate", function(e){
     syncData.forEach(function(element, index, array){
-        if( audioPlayer.currentTime >= element.start && audioPlayer.currentTime <= element.end )
+        if( audioPlayer.currentTime >= element.start && audioPlayer.currentTime <= element.end ){
             subtitles.children[index].style.background = 'yellow';
+            subtitles.scrollBy(0, 1);
+        }
     });
   });
 }
 
 function FollowMode(){
+  if(completMode == true) deleteSubtitle();
+
+  completMode = false;
+  followMode = true;
+  
+  document.getElementById("currentMode").innerHTML = "Mode Suivi";
+
   createSubtitle("follow");
   audioPlayer.addEventListener("timeupdate", function(e){
     syncData.forEach(function(element, index, array){
         if( audioPlayer.currentTime >= element.start && audioPlayer.currentTime <= element.end )
             subtitles.children[index].style.opacity = 1;
+            subtitles.scrollBy(0, 1);
     });
   });  
 }
 
 function CorrectionMode(){
-  //Ouvrir le fichier txt, l'uti corrige  et le prog modifie le XML grace au txt modif
   alert("CorrectionMode");
+  //Textearea remplis grave au fichier txt, creer un pop up avec bouton sauvegarder et croix de fermeture
+  //Voir travailler uniquement avec le fichier XML en testant la correction et la fichier de base grace à l'ID de chaque mot
 }
 
 // =====================================================================================================================
 //                                      Concernat le fichier XML et les infos recuperées
 // =====================================================================================================================
-
-// For the cursor, use currentTime() and compare with the stime of each word and appear the word of the current time ?
-
-// Function on audio balise
-// use currentTime() method to have the time of forward of audio file
-// This could be use to draw the marker on the transciption text
 
 //Recuperation des attributs et la valeur d'une balise XML -> WORD
 
@@ -114,6 +126,12 @@ function loadDoc() {
 //  })
 //}
 
+function transcipt(){
+
+  //setProgress();
+  loadDoc();
+}
+
 // =====================================================================================================================
 //                                      Curseur
 // =====================================================================================================================
@@ -132,4 +150,26 @@ function createSubtitle(mode)
     }
 }
 
+function deleteSubtitle(){
+  for (var i = 0; i < syncData.length; i++) {
+    subtitles.removeChild(document.getElementById("c_" + i));
+  }
+}
 
+// =====================================================================================================================
+//                                      Transcription Progress
+// =====================================================================================================================
+
+function getProgress(){
+
+  return progress;
+}
+
+function setProgress(){
+  
+  do{
+    var progress = getProgress();
+    document.getElementById("currentProgress").innerHTML = progress;
+  }while(progress != 100);
+
+}
