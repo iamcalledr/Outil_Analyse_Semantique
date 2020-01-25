@@ -18,5 +18,5 @@ __Master 1, University Projet, Computer Sciences__
 <p>Killian MARCHAND</p>
 <p>Romane BUON</p>
 <p>Artem Karassenko</p>
-<p>Ossan KASSEGNE</p>
+
 
