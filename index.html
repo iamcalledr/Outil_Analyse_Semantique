@@ -31,7 +31,7 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <img class="sidebar-brand-text mx-3" src="img/logolium.png"></img>
+        <img class="sidebar-brand-text mx-3" src="img/logolium.png" width="100%" height="100%"></img>
       </a>
 
       <!-- Divider -->
@@ -75,7 +75,7 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="file" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input id="fileupload" type="file" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button" onclick="transcipt()">
                   Transcription
@@ -136,7 +136,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <audio id='audio' src="./audio/Entretien avec Alexandre Astier (Bonus Chasseurs de Mondes).mp3" controls>Votre navigateur ne charge pas le lecteur audio</audio>
+                      <audio id='audio' controls>Votre navigateur ne charge pas le lecteur audio</audio>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-music fa-2x text-gray-300"></i>
@@ -265,8 +265,16 @@
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
 
+  <!-- Jquery FileUpload-->
+  <script type="text/javascript" src="jquery-fileupload/jquery.ui.widget.js"></script>
+  <script type="text/javascript" src="jquery-fileupload/jquery.iframe-transport.js"></script>
+  <script type="text/javascript" src="jquery-fileupload/jquery.fileupload.js"></script>
+
+  
+
   <!--My Script-->
-  <script type="text/javascript" src="./js/script.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <script type="text/javascript" src="./js/fileTraitment.js"></script>
 
 </body>
 
