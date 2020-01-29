@@ -1,67 +1,7 @@
-// =====================================================================================================================
-//                                      Concernat le fichier XML et les infos recuperées
-// =====================================================================================================================
 var audioPlayer = document.getElementById("audio");
 var subtitles = document.getElementById("txt");
 var element;
-var token = 'WyIxOCIsImE4OGZlNjYwNzg0ODU1NWNhMzEwYzM5ZDU1YzUwMmU4Il0.EIrwIQ.XdKVfnhd6d6UBWpjjYZLZGzrQek'
-var json;
-//Recuperation du fichier XML
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4){
-      wordList = xmlToTxt(this);
-    }
-  };
-  //xhttp.open("GET", "http://lst-demo.univ-lemans.fr:8000/api/v1.1/files/3912/transcription?auth_token=WyIxOCIsImE4OGZlNjYwNzg0ODU1NWNhMzEwYzM5ZDU1YzUwMmU4Il0.EIrwIQ.XdKVfnhd6d6UBWpjjYZLZGzrQek&format=xml", true);
-  //xhttp.open("GET", "https://lst-demo.univ-lemans.fr:8000/api/v1.1/files/3912/transcription? auth_token =" + token + "&format=xml");
-  //xhttp.setRequestHeader('Access-Control-Allow-Origin', 'Allow');
-  //xhttp.send();
 
-  //$.ajax({
-  //  url: 'https://lst-demo/api/v1.1/files/3912/transcription',
-  //  type:'GET',
-  //  dataType: 'json',
-  //  //autoUpload: true,
-  //  processData: false,
-  //  conentType: false,
-  //  //data: fileInput.files[0],
-  //  headers: {
-  //    "Authentication-Token": token,
-  //    "format": 'xml',
-  //    'Access-Control-Cross-Origin': 'Allow'
-  //  },
-//
-  //  done: function(e, data){
-  //    $("#currentProgress").innerHTML = data.jqXHR.reponseJSON.filename;
-  //  },
-  //  fail: function(e, data){
-  //    console.log('Network Error');
-  //  },
-  //  send: function(e, data){
-  //    console.log('send');
-  //  },
-  //  progressall: function(e, data){
-  //    console.log('process');
-  //  }
-  //});
-
-  var xhr = new XMLHttpRequest();
-
-  xhr.open('GET', 'https://lst-demo.univ-lemans.fr:8000/api/v1.1/files', true);
-  xhr.setRequestHeader("Authentication-Token", token);
-
-  xhr.onload = function(){
-    console.log(xhr.responseText);
-  };
-
-  xhr.onerror = function(){
-    console.log('Network Error For GET');
-  };
-
-  xhr.send();
-}
 
 //Recuperation des attributs et la valeur d'une balise XML -> WORD
 function newWord(word){
@@ -76,7 +16,6 @@ function getInfo(xmlDoc){
   for (i = 0; i <xmlDoc.length; i++) {
     for(j = 0; j < xmlDoc[i].getElementsByTagName("Word").length; j++ ){
       syncData.push(newWord(xmlDoc[i].getElementsByTagName("Word")[j]));
-
     }
   }
 }
@@ -110,8 +49,6 @@ function deleteSubtitle(){
     subtitles.removeChild(document.getElementById("c_" + i));
   }
 }
-
-
 
 function createTextArea(){
   element = document.createElement('textarea');

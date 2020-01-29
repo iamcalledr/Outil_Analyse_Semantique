@@ -1,132 +1,86 @@
-// =====================================================================================================================
-//                                      Concernant le fichier audio et l'audio
-// =====================================================================================================================
 
-//var choiseFile = document.getElementById('input').files[0];
+var token = 'WyIxOCIsImE4OGZlNjYwNzg0ODU1NWNhMzEwYzM5ZDU1YzUwMmU4Il0.EIrwIQ.XdKVfnhd6d6UBWpjjYZLZGzrQek'
 
 // =====================================================================================================================
-//                                      Global
+//                                      Delete File
 // =====================================================================================================================
+function deleteFile(){
+  var fileInput = document.getElementById('fileupload');
+  var fileFind = false;
+  
+  $.ajax({
+    url: 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/files',
+    type:'GET',
 
-//Gestion des modes par booleen
-//permet de savoir dans quel mode on se trouve au moment T
-var completMode = false;
-var followMode = false;
-var correctionMode = false;
+    dataType: 'json',
+    enctype: 'application/json',
+    processData: false,
+    contentType: false,
 
-var syncData = [];
+    headers: {
+      "Authentication-Token": token,
+    },
 
-
-function CompletMode(){
-  if(followMode == true) deleteSubtitle();
-
-  completMode = true;
-  followMode = false;
-
-  document.getElementById("currentMode").innerHTML = "Mode Complet";
-
-  createSubtitle("complet");
-  audioPlayer.addEventListener("timeupdate", function(e){
-    syncData.forEach(function(element, index, array){
-        if( audioPlayer.currentTime >= element.start && audioPlayer.currentTime <= element.end ){
-            subtitles.children[index].style.background = 'yellow';
-            //subtitles.scrollBy(0, 1);
-            if( index > 1){
-              subtitles.children[(index-1)].style.background = 'white';
-          }
+    success: function(resultat){
+      for(var i=0; i<resultat.length; i++){
+        if(fileInput.files[0].name == resultat[i].filename){
+          del(resultat[i].id);
+          fileFind = true;
         }
-
-    });
+      }
+      if(!fileFind){
+        console.log('DelFile: Fichier Inexistant')
+      }
+    },
+    error: function(resultat){
+      console.log('DelFile: Error')
+    },
   });
 }
 
-function FollowMode(){
-  if(completMode == true) deleteSubtitle();
-
-  completMode = false;
-  followMode = true;
-  
-  document.getElementById("currentMode").innerHTML = "Mode Suivi";
-
-  createSubtitle("follow");
-  audioPlayer.addEventListener("timeupdate", function(e){
-    syncData.forEach(function(element, index, array){
-        if( audioPlayer.currentTime >= element.start && audioPlayer.currentTime <= element.end )
-            subtitles.children[index].style.opacity = 1;
-            //subtitles.scrollBy(0, 1);
-    });
-  });  
-}
-
-function CorrectionMode(){
-
-  if(completMode == true || followMode == true) deleteSubtitle();
-  if(correctionMode == true) deleteTextArea();
-
-  correctionMode = true;
-
-  createTextArea();
-
-    //Textearea remplis grave au fichier txt, creer un pop up avec bouton sauvegarder et croix de fermeture
-  //Voir travailler uniquement avec le fichier XML en testant la correction et la fichier de base grace à l'ID de chaque mot
-}
-
-
-
 // =====================================================================================================================
-//                                      Concernat la transcription
+//                                      Transcript File
 // =====================================================================================================================
+function transcript(){
+  var fileInput = document.getElementById('fileupload');
+  var fileFind = false;
 
+  $.ajax({
+    url: 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/files',
+    type:'GET',
 
-var fileInput = document.getElementById('fileupload');
+    dataType: 'json',
+    enctype: 'application/json',
+    processData: false,
+    contentType: false,
 
+    headers: {
+      "Authentication-Token": token,
+    },
 
+    success: function(resultat){
 
-
-function transcipt(){
-  console.log(fileInput.files[0])
-
-  var xhr = new XMLHttpRequest();
-  var form = new FormData();
-  form.append('name', fileInput.files[0]);
-
-  xhr.open('POST', 'https://lst-demo.univ-lemans.fr:8000/api/v1.1/files', true);
-  //xhr.open('GET', 'https://lst-demo.univ-lemans.fr:8000/api/v1.1/files');
-  xhr.responseXML = 'json';
-  xhr.setRequestHeader("Authentication-Token", token);
-  xhr.setRequestHeader("Content-Type", "multipart/form-data");
-
-  //xhr.setRequestHeader('File', form);
-  //xhr.setRequestHeader("Start", "true");
-  //xhr.setRequestHeader("asr_model_name", "french.studio.fr_FR");
-
-  //xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  //xhr.setRequestHeader("Content", "{start: true, asr_model_name: french.studio.fr_FR}");
-
-  xhr.onload = function(){
-    console.log(xhr.responseText);
-  };
-
-  xhr.onerror = function(){
-    console.log('Network Error');
-  };
-
-  xhr.onprogress = function(event){
-    if(event.lengthComputable){
-      var percentC = event.loaded / event.total * 100;
-      document.getElementById("currentProgress").innerHTML = percentC + "%";
-    } else {
-      document.getElementById("currentProgress").innerHTML = "0%";
-    }
-  };
-
-  xhr.send(form);
-
-  //modifyAudio(form);
-  
-  //setProgress();
-  loadDoc();
+        for(var i=0; i<resultat.length; i++){
+          if(fileInput.files[0].name == resultat[i].filename){
+            loadDoc(resultat[i].id);
+            console.log('Transcript: Id find')
+            fileFind = true;
+          }
+        }
+        if(!fileFind){
+          //upload(fileInput)
+          console.log('Transcript: Id don t find')
+        }
+    },
+    error: function(resultat){
+      console.log('Transcript: Error')
+    },
+  });
 }
+
+
+
+
 
 // =====================================================================================================================
 //                                      Audio
